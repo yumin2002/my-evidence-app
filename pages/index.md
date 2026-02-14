@@ -29,6 +29,47 @@ title: Master Dashboard
     { order_time: new Date('2026-02-10T12:00:00Z'), replies: 30 },
     { order_time: new Date('2026-02-13T12:00:00Z'), replies: 44 }
   ];
+  const leadsData = [{ value: 557 }];
+  const leadRepliedData = [{ value: 474 }];
+  const avgCallDurationData = [{ value: 35 }];
+  const dndData = [{ value: 0 }];
+  const conversionData = [{ value: 0.2638 }];
+
+  const appointmentStatusConfig = {
+    tooltip: { trigger: 'item' },
+    series: [
+      {
+        type: 'pie',
+        data: [
+          { name: 'Confirmed - 119', value: 119 },
+          { name: 'Noshow - 12', value: 12 },
+          { name: 'Cancelled - 10', value: 10 },
+          { name: 'New - 1', value: 1 },
+          { name: 'Showed - 1', value: 1 }
+        ]
+      }
+    ]
+  };
+
+  const callsStatusConfig = {
+    tooltip: { trigger: 'item' },
+    series: [
+      {
+        type: 'pie',
+        data: [
+          { name: 'Answered - 94', value: 94 },
+          { name: 'Failed - 4', value: 4 },
+          { name: 'Busy - 3', value: 3 },
+          { name: 'Missed/No answer - 2', value: 2 }
+        ]
+      }
+    ]
+  };
+
+  const appointmentsPerMonthData = [
+    { month: 'Jan 26', count: 123 },
+    { month: 'Feb 26', count: 70 }
+  ];
 
   $: start = inputs?.date_range?.start ? new Date(`${inputs.date_range.start}T00:00:00Z`) : null;
   $: end = inputs?.date_range?.end ? new Date(`${inputs.date_range.end}T23:59:59Z`) : null;
@@ -56,60 +97,30 @@ title: Master Dashboard
 
 
 <Grid cols=2>
-  <BigValue title="Number of Leads" data={[{ value: 557 }]} value=value />
-  <BigValue title="Number of Lead Replied" data={[{ value: 474 }]} value=value />
+  <BigValue title="Number of Leads" data={leadsData} value=value />
+  <BigValue title="Number of Lead Replied" data={leadRepliedData} value=value />
 </Grid>
 
 <Grid cols=2>
-  <BigValue title="Average Call Duration (s)" data={[{ value: 35 }]} value=value />
-  <BigValue title="Number of DND" data={[{ value: 0 }]} value=value />
+  <BigValue title="Average Call Duration (s)" data={avgCallDurationData} value=value />
+  <BigValue title="Number of DND" data={dndData} value=value />
 </Grid>
 
 <ECharts
   title="Appointment Count Per Status"
-  config={{
-    tooltip: { trigger: 'item' },
-    series: [
-      {
-        type: 'pie',
-        data: [
-          { name: 'Confirmed - 119', value: 119 },
-          { name: 'Noshow - 12', value: 12 },
-          { name: 'Cancelled - 10', value: 10 },
-          { name: 'New - 1', value: 1 },
-          { name: 'Showed - 1', value: 1 }
-        ]
-      }
-    ]
-  }}
+  config={appointmentStatusConfig}
 />
 
 <ECharts
   title="Total Number of Calls"
-  config={{
-    tooltip: { trigger: 'item' },
-    series: [
-      {
-        type: 'pie',
-        data: [
-          { name: 'Answered - 94', value: 94 },
-          { name: 'Failed - 4', value: 4 },
-          { name: 'Busy - 3', value: 3 },
-          { name: 'Missed/No answer - 2', value: 2 }
-        ]
-      }
-    ]
-  }}
+  config={callsStatusConfig}
 />
 
 <BarChart
   title="Appointments Per Month"
-  data={[
-    { month: 'Jan 26', count: 123 },
-    { month: 'Feb 26', count: 70 }
-  ]}
+  data={appointmentsPerMonthData}
   x=month
   y=count
 />
 
-<BigValue title="Lead-to-Appointment Conversion" data={[{ value: 0.2638 }]} value=value fmt=pct2 />
+<BigValue title="Lead-to-Appointment Conversion" data={conversionData} value=value fmt=pct2 />
