@@ -1,38 +1,86 @@
 ---
-title: Master Dashboard (JSON Render)
+title: Master Dashboard
 ---
 
-<script>
-  // Frontend-only dummy JSON data (no SQL in markdown)
-  const rows = [
-    { month: '2026-01', category: 'Furniture', sales_usd: 1200 },
-    { month: '2026-01', category: 'Technology', sales_usd: 980 },
-    { month: '2026-01', category: 'Office Supplies', sales_usd: 430 },
-    { month: '2026-02', category: 'Furniture', sales_usd: 1575 },
-    { month: '2026-02', category: 'Technology', sales_usd: 1320 },
-    { month: '2026-02', category: 'Office Supplies', sales_usd: 510 },
-    { month: '2026-03', category: 'Furniture', sales_usd: 990 },
-    { month: '2026-03', category: 'Technology', sales_usd: 1750 },
-    { month: '2026-03', category: 'Office Supplies', sales_usd: 620 }
-  ];
+<DateRange name="date_range" defaultValue="last30Days" />
 
-  const total_sales = rows.reduce((acc, row) => acc + row.sales_usd, 0);
-  const summary = [{ total_sales }];
-</script>
+<Grid cols=2>
+  <BigValue title="Number of Leads" data={[{ value: 557 }]} value=value />
+  <BigValue title="Number of Lead Replied" data={[{ value: 474 }]} value=value />
+</Grid>
 
-# Master Dashboard
+<Grid cols=2>
+  <BigValue title="Average Call Duration (s)" data={[{ value: 35 }]} value=value />
+  <BigValue title="Number of DND" data={[{ value: 0 }]} value=value />
+</Grid>
 
-<BigValue
-  data={summary}
-  title="Total Sales"
-  value=total_sales
-  fmt=usd0
+<ECharts
+  title="Appointment Count Per Status"
+  config={{
+    tooltip: { trigger: 'item' },
+    legend: { orient: 'vertical', right: '4%', top: 'middle' },
+    color: ['#56A8EA', '#28B7D9', '#6E86E7', '#8E73E4', '#4E7FEA'],
+    series: [
+      {
+        type: 'pie',
+        radius: ['58%', '78%'],
+        center: ['30%', '50%'],
+        label: { show: false },
+        data: [
+          { name: 'Confirmed - 119', value: 119 },
+          { name: 'Noshow - 12', value: 12 },
+          { name: 'Cancelled - 10', value: 10 },
+          { name: 'New - 1', value: 1 },
+          { name: 'Showed - 1', value: 1 }
+        ]
+      }
+    ],
+    graphic: {
+      type: 'text',
+      left: '26%',
+      top: '46%',
+      style: { text: '143', fontSize: 24, fontWeight: 600, fill: '#334155' }
+    }
+  }}
+/>
+
+<ECharts
+  title="Total Number of Calls"
+  config={{
+    tooltip: { trigger: 'item' },
+    legend: { orient: 'vertical', right: '4%', top: 'middle' },
+    color: ['#56A8EA', '#28B7D9', '#6E86E7', '#8E73E4'],
+    series: [
+      {
+        type: 'pie',
+        radius: ['58%', '78%'],
+        center: ['30%', '50%'],
+        label: { show: false },
+        data: [
+          { name: 'Answered - 94', value: 94 },
+          { name: 'Failed - 4', value: 4 },
+          { name: 'Busy - 3', value: 3 },
+          { name: 'Missed/No answer - 2', value: 2 }
+        ]
+      }
+    ],
+    graphic: {
+      type: 'text',
+      left: '26%',
+      top: '46%',
+      style: { text: '103', fontSize: 24, fontWeight: 600, fill: '#334155' }
+    }
+  }}
 />
 
 <BarChart
-  data={rows}
-  title="Sales by Month (JSON)"
+  title="Appointments Per Month"
+  data={[
+    { month: 'Jan 26', count: 123 },
+    { month: 'Feb 26', count: 70 }
+  ]}
   x=month
-  y=sales_usd
-  series=category
+  y=count
 />
+
+<BigValue title="Lead-to-Appointment Conversion" data={[{ value: 0.2638 }]} value=value fmt=pct2 />
