@@ -1,0 +1,5 @@
+# Switched to JavaScript source for local dummy data rendering
+name: needful_things
+type: javascript
+options: {}
+credentials: null
