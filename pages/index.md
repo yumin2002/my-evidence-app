@@ -2,7 +2,25 @@
 title: Master Dashboard
 ---
 
+```sql sales_trend
+select
+  date_trunc('day', order_datetime) as day,
+  sum(sales) as sales_usd
+from needful_things.orders
+where cast(order_datetime as date) >= cast('${inputs.date_range.start}' as date)
+  and cast(order_datetime as date) <= cast('${inputs.date_range.end}' as date)
+group by 1
+order by 1
+```
+
 <DateRange name="date_range" defaultValue="last30Days" />
+<LineChart
+  title="Sales Trend (Filtered by Date Range)"
+  data={sales_trend}
+  x=day
+  y=sales_usd
+/>
+
 
 <Grid cols=2>
   <BigValue title="Number of Leads" data={[{ value: 557 }]} value=value />
