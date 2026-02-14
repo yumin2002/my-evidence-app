@@ -48,14 +48,9 @@ title: Master Dashboard
   title="Appointment Count Per Status"
   config={{
     tooltip: { trigger: 'item' },
-    legend: { orient: 'vertical', right: '4%', top: 'middle' },
-    color: ['#56A8EA', '#28B7D9', '#6E86E7', '#8E73E4', '#4E7FEA'],
     series: [
       {
         type: 'pie',
-        radius: ['58%', '78%'],
-        center: ['30%', '50%'],
-        label: { show: false },
         data: [
           { name: 'Confirmed - 119', value: 119 },
           { name: 'Noshow - 12', value: 12 },
@@ -64,13 +59,7 @@ title: Master Dashboard
           { name: 'Showed - 1', value: 1 }
         ]
       }
-    ],
-    graphic: {
-      type: 'text',
-      left: '26%',
-      top: '46%',
-      style: { text: '143', fontSize: 24, fontWeight: 600, fill: '#334155' }
-    }
+    ]
   }}
 />
 
@@ -78,14 +67,9 @@ title: Master Dashboard
   title="Total Number of Calls"
   config={{
     tooltip: { trigger: 'item' },
-    legend: { orient: 'vertical', right: '4%', top: 'middle' },
-    color: ['#56A8EA', '#28B7D9', '#6E86E7', '#8E73E4'],
     series: [
       {
         type: 'pie',
-        radius: ['58%', '78%'],
-        center: ['30%', '50%'],
-        label: { show: false },
         data: [
           { name: 'Answered - 94', value: 94 },
           { name: 'Failed - 4', value: 4 },
@@ -93,13 +77,7 @@ title: Master Dashboard
           { name: 'Missed/No answer - 2', value: 2 }
         ]
       }
-    ],
-    graphic: {
-      type: 'text',
-      left: '26%',
-      top: '46%',
-      style: { text: '103', fontSize: 24, fontWeight: 600, fill: '#334155' }
-    }
+    ]
   }}
 />
 
