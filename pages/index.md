@@ -18,20 +18,41 @@ title: Master Dashboard
     { order_time: new Date('2026-02-13T09:05:00Z'), category: 'Office Supplies', sales: 210 },
     { order_time: new Date('2026-02-13T17:55:00Z'), category: 'Technology', sales: 640 }
   ];
+  const rawReplies = [
+    { order_time: new Date('2026-01-16T12:00:00Z'), replies: 22 },
+    { order_time: new Date('2026-01-20T12:00:00Z'), replies: 26 },
+    { order_time: new Date('2026-01-24T12:00:00Z'), replies: 31 },
+    { order_time: new Date('2026-01-28T12:00:00Z'), replies: 35 },
+    { order_time: new Date('2026-02-01T12:00:00Z'), replies: 29 },
+    { order_time: new Date('2026-02-05T12:00:00Z'), replies: 41 },
+    { order_time: new Date('2026-02-08T12:00:00Z'), replies: 33 },
+    { order_time: new Date('2026-02-10T12:00:00Z'), replies: 30 },
+    { order_time: new Date('2026-02-13T12:00:00Z'), replies: 44 }
+  ];
 
   $: start = inputs?.date_range?.start ? new Date(`${inputs.date_range.start}T00:00:00Z`) : null;
   $: end = inputs?.date_range?.end ? new Date(`${inputs.date_range.end}T23:59:59Z`) : null;
   $: trendRows = rawOrders.filter((row) => (!start || row.order_time >= start) && (!end || row.order_time <= end));
+  $: replyTrendRows = rawReplies.filter((row) => (!start || row.order_time >= start) && (!end || row.order_time <= end));
 </script>
 
 <DateRange name="date_range" />
-<LineChart
-  title="Sales Trend (Filtered by Date Range)"
-  data={trendRows}
-  x=order_time
-  y=sales
-  xType=time
-/>
+<Grid cols=2>
+  <LineChart
+    title="Sales Trend (Filtered by Date Range)"
+    data={trendRows}
+    x=order_time
+    y=sales
+    xType=time
+  />
+  <LineChart
+    title="Replies Trend (Same Date Filter)"
+    data={replyTrendRows}
+    x=order_time
+    y=replies
+    xType=time
+  />
+</Grid>
 
 
 <Grid cols=2>
